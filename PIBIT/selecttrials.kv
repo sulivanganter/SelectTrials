@@ -1,0 +1,174 @@
+
+#:import main main
+#:import GridLayout kivy.uix.gridlayout.GridLayout
+#:import TreeView kivy.uix.treeview
+#:import TreeViewLabel kivy.uix.treeview
+#:import ListView kivy.uix.listview
+#:import ListAdapter kivy.adapters.listadapter.ListAdapter
+#:import ListItemButton kivy.uix.listview.ListItemButton
+#:import StencilView kivy.uix.stencilview.StencilView
+
+
+
+
+<Interface>:
+    include_list: include_list_view
+    rule: rule_text
+    orientation: "vertical"
+    spacing:6
+    padding:3
+    canvas:
+        Color:
+            rgba: [1, 1, 1, 1]
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint:1,.7
+        Button:
+            text:"Testes"
+
+
+
+    Label:
+        size_hint:1,.05
+        text:"Retorno:"
+        halign: 'center'
+        color: (255,255,255,.8)
+        font_size: "15sp"
+
+
+    BoxLayout:
+        canvas:
+            Color:
+                rgba: [.8, .8, .8, .4]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: "horizontal"
+        size_hint:1,.03
+        Label:
+            text:"Exclusao"
+            color: (255,255,255,.8)
+            size_hint:.22,1
+        Label:
+            text:"Configuracoes"
+            color: (255,255,255,.8)
+            size_hint:.56,1
+        Label:
+            text:"Inclusao"
+            color: (255,255,255,.8)
+            size_hint:.22,1
+
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint:1,.3
+        spacing:3
+        padding:3
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint:.21,1
+            ScrollView:
+                canvas:
+                    Color:
+                        rgba: [.8, .5, .7, .18]
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint:1,.9
+                ListView:
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint:1,.1
+                Label:
+                    text:'Excluir:'
+                    color: (255,255,255,.8)
+                    size_hint:.33,1
+                Button:
+                    text:"Selec."
+                    size_hint:.33,1
+                Button:
+                    text:"Todos"
+                    size_hint:.33,1
+        Button:
+            text:"<"
+            size_hint:.02,1
+
+        # ---------- Displays TabbedPanel ----------
+        TabbedPanel:
+            do_default_tab: False
+            background_color: (.7, .7, .7, .8)
+
+            size_hint:.52,1
+
+            TabbedPanelItem:
+                text: 'Paciente'
+                ScrollView:
+                    BoxLayout:
+                        size_hint_y: None
+                        height: 150
+                        orientation: "vertical"
+                        spacing:2
+                        padding:4
+                        BoxLayout:
+                            orientation: "horizontal"
+                            CheckBox:
+                                size_hint:.1,1
+                            Label:
+                                text: "Content:"
+                                size_hint:.2,1
+                            TextInput:
+                                id:rule_text
+                                size_hint: .8,1
+                        BoxLayout:
+                            orientation: "horizontal"
+                            CheckBox:
+                                size_hint:.1,1
+                            Label:
+                                text: "Content:"
+                                size_hint:.2,1
+                            TextInput:
+                                size_hint: .8,1
+
+            TabbedPanelItem:
+                text: 'CID-10'
+                ScrollView:
+                    TreeWidget:
+                        size_hint_y: None
+                        height: 300
+
+        Button:
+            text:">"
+            #background_normal: [10, 0, 0, 0.94]
+            size_hint:.02,1
+            on_press: root.add_include()
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint:.21,1
+            ScrollView:
+                canvas:
+                    Color:
+                        rgba: [.4, .5, .7, .18]
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                size_hint:1,.9
+                ListView:
+                    id: include_list_view
+                    adapter:
+                        ListAdapter(data=["Doug Smith"], cls=main.includeListButton)
+            BoxLayout:
+                orientation:'horizontal'
+                size_hint:1,.1
+                Label:
+                    text:'Excluir:'
+                    color: (255,255,255,.8)
+                    size_hint:.33,1
+                Button:
+                    text:"Selec."
+                    size_hint:.33,1
+                Button:
+                    text:"Todos"
+                    size_hint:.33,1
